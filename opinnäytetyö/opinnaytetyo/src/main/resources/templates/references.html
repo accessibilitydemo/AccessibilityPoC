@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Welcome</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	
+	<div class="container p-3 my-3 border" th:object="${userLogged}">
+	  	<form id="explanation" th:action="@{/toForm}" method="POST">
+	  		<h1>Accessibility with online forms</h1>
+	  		<br>
+	  		<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link disabled" href="src/main/resources/templates/references.html">Explanation & References</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="src/main/resources/templates/formOne.html">Accessibility form</a></li>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="src/main/resources/templates/summary.html">Summary & Send</a>
+					</li>
+				</ul>
+			</nav>
+	  		
+		  	<p></p> 
+		  	<p>This web-site has been created as a part of a thesis focusing on accessibility on online forms. The aim of this page
+	 			is to provide simple proof of concept / demo on some accessibilities with online form. For this reason I have created a simple
+	 			"Research grant for school personnel" form that starts from the next page.</p> 
+	 		
+	 		<p>The form in question has simple guidance on what needs to be filled as well as
+	 			error messaging and highlighting empty fields with red colors. The point of the form page is not to let the user "submit" it
+	 			before all the required fields are filled. To move on to the form page, please press button next (blue) at the end of this page. To logout
+				press logout button (red). For further information on accessibility and how this website is created below.</p><br>
+	 		
+	 		<p>In terms of accessibility the form show the user where they are within the website / process (navigator), it also indicates what fields need to be filled and which are obligatory,
+	 			if the user fails to fill an obligatory field it will not let the user move on before filling it, the form also offers simple guidance and before it can be send you will have the 
+	 			possibility to go through it once more in form of a summary.</p>
+	 		
+	 		<p>The form itself is not aiming to replicate real life situation in terms of asking everything required from the user to apply for the grant. It is only meant to showcase some 
+	 			accessibility features to support the thesis.</p><br>
+			
+			<p>If you are new to this topic and don't really know what accessibility is I would recommend you to take a look at the links below. The first one 
+				is in Finnish, but rest are in English.</p><br>
+			
+			<div id="accessbilityList"class="list-group">
+			  <a href="https://papunet.net/saavutettavuus" class="list-group-item list-group-item-action">Papunet - Saavutettavuus</a>
+			  <a href="https://www.usability.gov/get-involved/blog/2013/01/accessibility-and-usability.html" class="list-group-item list-group-item-action">Usability and Accessibility</a>
+			  <a href="https://www.w3.org/standards/webdesign/accessibility" class="list-group-item list-group-item-action">Accessibility</a>
+			  <a href="https://www.un.org/development/desa/disabilities/convention-on-the-rights-of-persons-with-disabilities.html" class="list-group-item list-group-item-action">Convention on the rights of persons with disabilities</a>
+			  <a href="https://www.levelaccess.com/what-does-responsive-web-design-have-to-do-with-accessibility/" class="list-group-item list-group-item-action">What does responsive web design have to do with accessibility?</a>
+			</div>
+			
+			<p>I have used spring and maven to create the project template for this website. For the logic I have used Java and Thymeleaf. Styling has been done with Bootstrap and regular css when necessary.
+				Some features have been also built with JavaScript. Below you have the full list of resources to create a page like this, if you are interested:</p><br>
+		  	
+		  	<div id="sourcesList"class="list-group">
+			  <a href="https://start.spring.io/" class="list-group-item list-group-item-action">Spring.io</a>
+			  <a href="https://www.w3schools.com/" class="list-group-item list-group-item-action">w3-School</a>
+			  <a href="https://www.w3schools.com/bootstrap4/default.asp" class="list-group-item list-group-item-action">w3-School/Bootstrap</a>
+			  <a href="https://www.thymeleaf.org/" class="list-group-item list-group-item-action">Thymeleaf</a>
+			  <a href="https://developer.mozilla.org/en-US/docs/Learn/HTML" class="list-group-item list-group-item-action">Mozilla developer</a>
+			  <a href="https://www.eclipse.org/" class="list-group-item list-group-item-action">Eclipse</a>
+			  <a href="https://maven.apache.org/what-is-maven.html" class="list-group-item list-group-item-action">Maven</a>
+			  <a href="https://spring.io/" class="list-group-item list-group-item-action">Spring</a>
+			</div><br>
+
+			<button name="next" value="Next" type="submit" class="btn btn-primary btn-block">Next</button><br>
+			<button name="logout" value="LogOut" type="submit" class="btn btn-danger btn-block">Logout</button>
+			<br>
+		</form>  
+	</div>
+	
+	
+	<!-- JavaScript ja muut setit -->
+</body>
+</html>

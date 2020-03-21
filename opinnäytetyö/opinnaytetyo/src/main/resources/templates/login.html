@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Login</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="src/main/resources/static/css/login.css">
+</head>
+<body>
+
+	<div class="container p-3 my-3 border">
+	  	<h1>Proof of concept - Accessibility with online forms</h1>
+	  	<p></p> 
+	  	<p>Welcome, this web-site has been created as a part of a thesis: Accessibility with online forms. You can find the thesis from Haaga-Helia's University of Applied Sciences archives (www.haaga.helia.fi).</p>
+	  	<p>Please login!</p>
+	  	
+	  	<div id="loginFail" class="alert alert-danger alert-dismissible fade show" style="display: none">
+			<button id="closeLoginFail" type="button" class="close" data-dismiss="alert">&times;</button>
+			<b>You have entered wrong login credentials...try again!</b>
+			<p>Username & Password: thesis</p>
+			<p style="font-size: 11px;">X will close this message permanently</p> 
+		</div>
+	  	
+		<form id="one" th:action="@{/toExplanation}" th:object="${login}" method="POST" class="needs-validation" novalidate>
+			<div class="form-group">
+				<label for="username">Username:</label>
+				<input th:field="*{username}" id="username" type="text" class="form-control" placeholder="Enter username: thesis" name="uname" required>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please fill out this field.</div>
+			</div>
+			<div class="form-group">
+				<label for="loginPwd">Password:</label>
+				<input th:field="*{password}" id="loginPwd" type="password" class="form-control" placeholder="Enter password: thesis" name="pswd" required>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please fill out this field.</div>
+			</div>
+		<button type="submit" class="btn btn-primary btn-block">Login!</button>
+		</form>  
+	</div>
+	
+	
+	<!-- JavaScript ja muut setit -->
+	<script>
+		// Disable form submissions if there are invalid fields
+		(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    // Get the forms we want to add validation styles to
+		    var forms = document.getElementsByClassName('needs-validation');
+		    // Loop over them and prevent submission
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		          myFunction()
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
+		function myFunction() {
+			document.getElementById("loginFail").style.display = "block"; 
+		}
+	</script>
+</body>
+</html>

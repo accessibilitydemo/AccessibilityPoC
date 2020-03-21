@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Form</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+	<div class="container p-3 my-3 border" th:object="${userLogged}">
+	  	<h1 id="formHeader">Research grant for school personnel</h1>
+	  	<br>
+		
+		<form id="firstForm" th:action="@{/toSummary}" th:object="${formOne}" method="POST" class="needs-validation" novalidate>
+			
+			<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link disabled" href="src/main/resources/templates/references.html">Explanation & References</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link disabled" href="src/main/resources/templates/formOne.html">Accessibility form</a></li>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="src/main/resources/templates/summary.html">Summary & Send</a>
+					</li>
+				</ul>
+			</nav>
+			
+			<div class="alert alert-info">
+	  			<strong>Guide!</strong>
+	  			<br>
+  				<p>Welcome and congratulations on your decision to apply for a study grant at your current school. This form is quite straight forward to fill.
+  					Please note: every field with the <strong>'*'</strong> sign is a mandatory field.</p>
+  				<p>Please answer all the questions truthfully. Grants gained by giving false information will be taken into court.</p>	
+			</div>
+			
+			<!-- FirstName -->
+			<div class="form-group">
+				<label for="firstname">First name(s): *</label>
+				<input th:id="firstname" id="username" type="text" class="form-control" placeholder="Enter first name(s) here" name="firstname" required>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please enter your first name(s).</div>
+			</div>
+			
+			<!-- LastName -->
+			<div class="form-group">
+				<label for="lastname">Family name(s): *</label>
+				<input th:id="lastname" id="lastname" type="text" class="form-control" placeholder="Enter family name(s) here" name="lastname" required>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please enter your family names(s).</div>
+			</div>
+			
+			<!-- Roles - DropDownList -->
+			<div class="form-group">
+				<label for="role">Select role: *</label>
+				<select class="form-control" id="role" name="roles" required>
+					<option data-hidden="true"></option>
+					<option th:id="roles" value="teacher">Teacher</option>
+					<option th:id="roles" value="student">Student</option>
+					<option th:id="roles" value="other">Other</option>
+				</select>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please select your role.</div>
+			</div> 
+			 
+			<!-- First Grant - Yes/No -->
+			<div id="yesNo" class="form-group">
+				<label for="schoolInput">Have you had any previous research grants? *</label><br>
+				<input th:field="*{yesGrant}" onclick="showBefore()" name="schoolInput" type="radio" value=true required> Yes<br>
+	 			<input th:field="*{yesGrant}" onclick="hideBefore()" name="schoolInput" type="radio" value=false required> No<br>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please select yes or no.</div>
+			</div>
+			
+			<!-- Previous Grant - Only if previous questions is YES -->
+			<div id="grantBefore" class="form-group" style="display:none">
+				<label for="grantBefore">Elaborate on your previous grants *</label><br>
+				<textarea disabled th:field="*{grantBefore}" class="form-control" id="grantB" rows="4" cols="50" placeholder="List all the previous grants you have received" required></textarea>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please explain what previous grants you have had.</div>
+			</div>
+			
+			<!-- Select a School - Radio -->
+			<div id="radioButtonContainer" class="form-group">
+				<label for="schoolInput">Which establishment are you currently doing your research for? *</label><br>
+				<input th:field="*{radio}" name="schoolInput" type="radio" value="Haaga-Helia" required> Haaga-Helia<br>
+	 			<input th:field="*{radio}" name="schoolInput" type="radio" value="Metropolia" required> Metropolia<br>
+	 			<input th:field="*{radio}" name="schoolInput" type="radio" value="Other" required> Other <br>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please select a school.</div>
+			</div>
+			
+			<!-- Grant Now - Explain -->
+			<div id="radioButtonContainer" class="form-group">
+				<label for="currentJob">What is your current role at your school? </label><br>
+				<textarea th:field="*{currentJob}" class="form-control" id="currentJ" rows="4" cols="50" placeholder="Please elaborate on your work and achievements"></textarea>
+			</div>
+			
+			<!-- Grant Now - Explain -->
+			<div class="form-group">
+				<label for="explainNow">For what research are you applying a new grant for? *</label>
+				<br><textarea th:field="*{grantNow}" class="form-control" id="grantN" rows="4" cols="50" placeholder="Please explain your current research project" required></textarea>
+				<div class="valid-feedback">Valid.</div>
+				<div class="invalid-feedback">Please explain your current research project.</div>
+			</div>
+		<button type="submit" class="btn btn-primary btn-block" name="moveToSummary" value="Submit">Send form</button>
+		</form>  
+	</div>
+	
+	
+	<!-- JavaScript ja muut setit -->
+	<script>
+		function showBefore() {
+			document.getElementById("grantBefore").style.display = "block";
+			document.getElementById("grantB").disabled = false; 
+		}
+		function hideBefore() {
+			document.getElementById("grantBefore").style.display = "none";
+			document.getElementById("grantB").disabled = true; 
+		}
+		// Disable form submissions if there are invalid fields
+		(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    // Get the forms we want to add validation styles to
+		    var forms = document.getElementsByClassName('needs-validation');
+		    // Loop over them and prevent submission
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
+	</script>
+</body>
+</html>

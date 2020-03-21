@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Summary</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="summary" class="container">
+		
+		<form class="container p-3 my-3 border" th:action="@{/done}" th:object="${userLogged}">
+			<h1>Summary</h1>
+			<br>
+			<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link disabled" href="src/main/resources/templates/references.html">Explanation & References</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link disabled" href="src/main/resources/templates/formOne.html">Accessibility form</a></li>
+					<li class="nav-item active">
+						<a class="nav-link disabled" href="src/main/resources/templates/summary.html">Summary & Send</a>
+					</li>
+				</ul>
+			</nav>
+			
+			<div class="alert alert-info">
+	  			<strong>Congratulations!</strong>
+	  			<br>
+  				<p>Your form was successfully sent. If you notice that it had any errors on it you can re-do it by pressing new form (yellow button).
+  					Each applicant can only have one application open at a time so the new application will replace your old one. If you are 
+  					satisfied with the application you can select to go back to page I (blue button) or to log out (red button)</p>		
+			</div>
+			
+			<!-- First- and lastname -->
+			<div class="form-group">
+			<strong>Applicant name: </strong>
+      			<p th:text="${formOne.firstname} + ' ' + ${formOne.lastname}"></p>
+  			</div>
+  			
+  			<!-- Role -->
+			<div class="form-group">
+			<strong>Your role? </strong>
+      			<p th:text="${formOne.roles}"></p>
+  			</div>
+  			
+			<!-- Previous grants -->
+			<div class="form-group" th:if="${formOne.yesGrant} ? 'TRUE'">
+			<strong>Have you received previous grants? </strong>
+      			<p>Yes, I have</p>
+  			</div>
+			<div class="form-group" th:if="${formOne.yesGrant} ? 'FALSE'">
+			<strong>Have you received previous grants? </strong>
+      			<p>No, I have not</p>
+  			</div>
+  			
+  			<!-- Previous grants explained - if previous question is yes -->
+			<div class="form-group" th:if="${formOne.yesGrant} ? 'TRUE'">
+			<strong>Previous grants: </strong>
+      			<p th:text="${formOne.grantBefore}"></p>
+  			</div>
+  			
+  			<!-- Current school -->
+			<div class="form-group">
+			<strong>Your current school: </strong>
+      			<p th:text="${formOne.radio}"></p>
+  			</div>
+  			
+  			<!-- Role at current school -->
+			<div class="form-group" th:if="${formOne.currentJob !=null and !formOne.currentJob.isEmpty()}">
+			<strong>Your role at your current school: </strong>
+      			<p th:text="${formOne.currentJob}"></p>
+  			</div>
+  			
+  			<!-- Grant now -->
+			<div class="form-group">
+			<strong>For what research are you applying to get a grant now: </strong>
+      			<p th:text="${formOne.grantNow}"></p>
+  			</div>
+			
+			<!-- Return/Send buttons -->
+			<br><br>
+			<button type="submit" class="btn btn-primary btn-block" name="moveToExplain" value="Send">Return to first page</button>
+			<button type="submit" class="btn btn-warning btn-block" name="moveToFormOne" value="Return">New form</button>
+			<button type="submit" class="btn btn-danger btn-block" name="logout" value="LogOut" >Logout</button>
+		</form>
+	
+	</div>
+</body>
+</html>
